@@ -14,36 +14,36 @@ import {
   ErrorMessage,
 } from './StyledComponents'
 
-class Login extends Component {
+class LoginForm extends Component {
   state = {
-    isDarkTheme: false,
+    isDarkTheme: true,
     username: '',
     password: '',
     errorMsg: '',
-    showErrorMsg: false,
-    isCheckboxChecked: false,
+    isErrorVisible: false,
+    showPassword: false,
   }
 
-  onClickChecbox = () => {
+  onToggleShowPassword = () => {
     this.setState(prevState => ({
-      isCheckboxChecked: !prevState.isCheckboxChecked,
+      showPassword: !prevState.showPassword,
     }))
   }
 
-  onSubmitFailure = errMsg => {
+  handleLoginFailure = errMsg => {
     this.setState({
       errorMsg: errMsg,
-      showErrorMsg: true,
+      isErrorVisible: true,
     })
   }
 
-  onSubmitSuccess = jwtToken => {
+  handleLoginSuccess = jwtToken => {
     Cookies.set('jwt_token', jwtToken, {expires: 30, path: '/'})
     const {history} = this.props
     history.replace('/')
   }
 
-  onSubmitForm = async event => {
+  handleSubmit = async event => {
     event.preventDefault()
     const {username, password} = this.state
     const userLoginCredentials = {
@@ -61,30 +61,30 @@ class Login extends Component {
       const dbResponse = await response.json()
 
       if (response.ok === true) {
-        this.onSubmitSuccess(dbResponse.jwt_token)
+        this.handleLoginSuccess(dbResponse.jwt_token)
       } else {
-        this.onSubmitFailure(dbResponse.error_msg)
+        this.handleLoginFailure(dbResponse.error_msg)
       }
     } catch (error) {
-      this.onSubmitFailure(error.message || 'Something went wrong')
+      this.handleLoginFailure(error.message || 'Something went wrong')
     }
   }
 
-  onChangePassword = event => {
+  handlePasswordChange = event => {
     this.setState({
       password: event.target.value,
     })
   }
 
-  onChangeUsername = event => {
+  handleUsernameChange = event => {
     this.setState({
       username: event.target.value,
     })
   }
 
   renderPasswordField = () => {
-    const {isDarkTheme, password, isCheckboxChecked} = this.state
-    const checkboxType = isCheckboxChecked ? 'text' : 'password'
+    const {isDarkTheme, password, showPassword} = this.state
+    const inputType = showPassword ? 'text' : 'password'
     return (
       <>
         <Label htmlFor="password" isDarkTheme={isDarkTheme}>
@@ -92,10 +92,10 @@ class Login extends Component {
         </Label>
         <InputField
           id="password"
-          type={checkboxType}
+          type={inputType}
           placeholder="Password"
           isDarkTheme={isDarkTheme}
-          onChange={this.onChangePassword}
+          onChange={this.handlePasswordChange}
           value={password}
         />
       </>
@@ -114,7 +114,7 @@ class Login extends Component {
           type="text"
           placeholder="Username"
           isDarkTheme={isDarkTheme}
-          onChange={this.onChangeUsername}
+          onChange={this.handleUsernameChange}
           value={username}
         />
       </>
@@ -122,33 +122,43 @@ class Login extends Component {
   }
 
   render() {
-    const {isDarkTheme, errorMsg, showErrorMsg, isCheckboxChecked} = this.state
-    const logoSrc = isDarkTheme
+    const {
+      isDarkTheme,
+      errorMsg,
+      showPassword,
+      isErrorVisible,
+      username,
+      password,
+    } = this.state
+    const nxtWatchImage = isDarkTheme
       ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
       : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
     return (
       <AppContainer isDarkTheme={isDarkTheme}>
-        <FormContainer isDarkTheme={isDarkTheme} onSubmit={this.onSubmitForm}>
-          <CompanyLogo src={logoSrc} alt="website logo" />
+        <FormContainer isDarkTheme={isDarkTheme} onSubmit={this.handleSubmit}>
+          <CompanyLogo src={nxtWatchImage} alt="nxt watch logo" />
           <UserInputContainer>{this.renderUsernameField()}</UserInputContainer>
           <UserInputContainer>{this.renderPasswordField()}</UserInputContainer>
           <ShowPasswordContainer>
             <Checkbox
-              id="checkbox"
+              id="show-password"
               type="checkbox"
-              onChange={this.onClickChecbox}
-              checked={isCheckboxChecked}
+              onChange={this.onToggleShowPassword}
+              checked={showPassword}
+              disabled={!password}
             />
-            <ShowPassword htmlFor="checkbox" isDarkTheme={isDarkTheme}>
+            <ShowPassword htmlFor="show-password" isDarkTheme={isDarkTheme}>
               Show Password
             </ShowPassword>
           </ShowPasswordContainer>
-          <LoginButton type="submit">Login</LoginButton>
-          {showErrorMsg && <ErrorMessage>*{errorMsg}</ErrorMessage>}
+          <LoginButton type="submit" disabled={!username || !password}>
+            Login
+          </LoginButton>
+          {isErrorVisible && <ErrorMessage>*{errorMsg}</ErrorMessage>}
         </FormContainer>
       </AppContainer>
     )
   }
 }
 
-export default Login
+export default LoginForm
