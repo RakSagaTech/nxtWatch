@@ -46,6 +46,7 @@ export const IconOptioButtonContainer = styled.button`
     if (!props.isActive && props.isDarkTheme) return '#212121'
     return '#ffffff'
   }};
+  text-decoration: none;
 `
 
 export const OptionIcon = styled.div`
@@ -69,7 +70,7 @@ export const Option = styled.h1`
     if (!props.isActive && !props.isDarkTheme) return '#606060'
     return '#000000'
   }};
-  font-weight: bold;
+  font-weight: ${props => (props.isActive ? 'bold' : 'normal')};
 `
 export const ContactLogoContainer = styled.div`
   display: flex;
@@ -83,6 +84,7 @@ export const ContactHeading = styled.h1`
   font-weight: 500;
   color: ${props => (props.isDarkTheme ? '#ffffff' : '#1e293b')};
   margin: 0px;
+  text-decoration: none;
 `
 
 export const LogosContainer = styled.div`

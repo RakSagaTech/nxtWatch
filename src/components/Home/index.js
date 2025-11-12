@@ -68,22 +68,29 @@ class Home extends Component {
       const response = await fetch(apiUrl, options)
       if (response.ok === true) {
         const dbResponse = await response.json()
-        const formattedData = dbResponse.videos.map(eachVideo => ({
-          id: eachVideo.id,
-          title: eachVideo.title,
-          thumbnailUrl: eachVideo.thumbnail_url,
-          channel: {
-            name: eachVideo.channel.name,
-            profileImageUrl: eachVideo.channel.profile_image_url,
-          },
-          viewCount: eachVideo.view_count,
-          publishedAt: eachVideo.published_at,
-        }))
-
-        this.setState({
-          apistatus: apiStatusConstants.success,
-          videosLists: formattedData,
-        })
+        const {videos} = dbResponse
+        if (videos.length === 0) {
+          this.setState({
+            apistatus: apiStatusConstants.success,
+            videosLists: [],
+          })
+        } else {
+          const formattedData = dbResponse.videos.map(eachVideo => ({
+            id: eachVideo.id,
+            title: eachVideo.title,
+            thumbnailUrl: eachVideo.thumbnail_url,
+            channel: {
+              name: eachVideo.channel.name,
+              profileImageUrl: eachVideo.channel.profile_image_url,
+            },
+            viewCount: eachVideo.view_count,
+            publishedAt: eachVideo.published_at,
+          }))
+          this.setState({
+            apistatus: apiStatusConstants.success,
+            videosLists: formattedData,
+          })
+        }
       } else {
         this.setState({
           apistatus: apiStatusConstants.failure,
@@ -96,10 +103,38 @@ class Home extends Component {
     }
   }
 
+  updateTheme = () => {
+    this.setState(prevState => ({
+      isDarkTheme: !prevState.isDarkTheme,
+    }))
+  }
+
   updateOptionName = name => {
     this.setState({
       optionName: name,
     })
+  }
+
+  onClickSearch = () => {
+    this.fetchVideosData()
+  }
+
+  onEnterSearch = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.onClickSearch()
+    }
+  }
+
+  onChangeSearchInput = event => {
+    const {value} = event.target
+    if (value === '') {
+      this.fetchVideosData()
+    } else {
+      this.setState({
+        searchInput: value,
+      })
+    }
   }
 
   renderNoSearchResultsView = () => {
@@ -142,6 +177,9 @@ class Home extends Component {
 
   renderSuccessView = () => {
     const {videosLists, isDarkTheme} = this.state
+    if (videosLists.length === 0) {
+      return this.renderNoSearchResultsView()
+    }
     return (
       <VideosDetailsContainer>
         <VideosListContainer>
@@ -159,7 +197,7 @@ class Home extends Component {
 
   renderLoadingView = () => (
     <LoadingContainer className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#000000" height="50" width="50" />
+      <Loader type="ThreeDots" color="#3b82f6" height="50" width="50" />
     </LoadingContainer>
   )
 
@@ -189,7 +227,7 @@ class Home extends Component {
           />
         </SideBarContainer>
         <HeaderBannerVideosContainer isDarkTheme={isDarkTheme}>
-          <Header isDarkTheme={isDarkTheme} />
+          <Header isDarkTheme={isDarkTheme} updateTheme={this.updateTheme} />
           <Banner />
           <SearchInputVideosContainer isDarkTheme={isDarkTheme}>
             <SearchInputLogoContainer isDarkTheme={isDarkTheme}>
@@ -197,8 +235,13 @@ class Home extends Component {
                 type="search"
                 placeholder="Search"
                 isDarkTheme={isDarkTheme}
+                onChange={this.onChangeSearchInput}
+                onKeyDown={this.onEnterSearch}
               />
-              <SearchIcon isDarkTheme={isDarkTheme}>
+              <SearchIcon
+                isDarkTheme={isDarkTheme}
+                onClick={this.onClickSearch}
+              >
                 <AiOutlineSearch size={17} />
               </SearchIcon>
             </SearchInputLogoContainer>

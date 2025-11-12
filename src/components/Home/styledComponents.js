@@ -68,7 +68,7 @@ export const SearchInput = styled.input`
   border-right: 2px solid #909090;
   background-color: ${props => (props.isDarkTheme ? '#181818' : '#f9f9f9')};
   padding: 10px 13px;
-  color: #606060;
+  color: ${props => (props.isDarkTheme ? '#ebebeb' : '#606060')};
   font-family: 'Roboto';
   font-size: 14px;
 `

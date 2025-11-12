@@ -92,3 +92,42 @@ export const LogoutButton = styled.button`
   border-radius: 4px;
   margin-left: 12px;
 `
+
+export const PopupContainer = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`
+
+export const PopupHeading = styled.h1`
+  color: #00306e;
+  font-family: 'Roboto';
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+`
+
+export const PopupButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-top: 24px;
+  margin-bottom: 10px;
+`
+
+export const PopupButton = styled.button`
+  padding: 10px 20px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 2px;
+  color: #94a3b8;
+  background-color: transparent;
+  border: 0.5px solid #7e858e;
+  outline: none;
+  cursor: pointer;
+`

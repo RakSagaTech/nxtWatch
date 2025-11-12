@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {AiFillHome} from 'react-icons/ai'
 import {HiFire} from 'react-icons/hi'
 import {SiYoutubegaming} from 'react-icons/si'
@@ -32,79 +33,96 @@ const SideBar = props => {
   return (
     <>
       <NxtWatchLogoContainer isDarkTheme={isDarkTheme}>
-        <NxtWatchLogo src={nxtWatchLogo} alt="nxt watch logo" />
+        <Link to="/" style={{textDecoration: 'none'}}>
+          <NxtWatchLogo src={nxtWatchLogo} alt="nxt watch logo" />
+        </Link>
       </NxtWatchLogoContainer>
       <OptionsContactContainer isDarkTheme={isDarkTheme}>
         <OptionsContainer isDarkTheme={isDarkTheme}>
-          <IconOptioButtonContainer
-            onClick={() => onClickOption('HOME')}
-            isActive={optionName === 'HOME'}
-            isDarkTheme={isDarkTheme}
-          >
-            <OptionIcon
+          <Link to="/" style={{textDecoration: 'none'}}>
+            <IconOptioButtonContainer
+              onClick={() => onClickOption('HOME')}
               isActive={optionName === 'HOME'}
               isDarkTheme={isDarkTheme}
+              type="button"
             >
-              <AiFillHome size={21} />
-            </OptionIcon>
-            <Option isActive={optionName === 'HOME'} isDarkTheme={isDarkTheme}>
-              Home
-            </Option>
-          </IconOptioButtonContainer>
-          <IconOptioButtonContainer
-            onClick={() => onClickOption('TRENDING')}
-            isActive={optionName === 'TRENDING'}
-            isDarkTheme={isDarkTheme}
-          >
-            <OptionIcon
+              <OptionIcon
+                isActive={optionName === 'HOME'}
+                isDarkTheme={isDarkTheme}
+              >
+                <AiFillHome size={21} />
+              </OptionIcon>
+              <Option
+                isActive={optionName === 'HOME'}
+                isDarkTheme={isDarkTheme}
+              >
+                Home
+              </Option>
+            </IconOptioButtonContainer>
+          </Link>
+          <Link to="/trending" style={{textDecoration: 'none'}}>
+            <IconOptioButtonContainer
+              onClick={() => onClickOption('TRENDING')}
               isActive={optionName === 'TRENDING'}
               isDarkTheme={isDarkTheme}
+              type="button"
             >
-              <HiFire size={21} />
-            </OptionIcon>
-            <Option
-              isActive={optionName === 'TRENDING'}
-              isDarkTheme={isDarkTheme}
-            >
-              Trending
-            </Option>
-          </IconOptioButtonContainer>
-          <IconOptioButtonContainer
-            onClick={() => onClickOption('GAMING')}
-            isActive={optionName === 'GAMING'}
-            isDarkTheme={isDarkTheme}
-          >
-            <OptionIcon
+              <OptionIcon
+                isActive={optionName === 'TRENDING'}
+                isDarkTheme={isDarkTheme}
+              >
+                <HiFire size={21} />
+              </OptionIcon>
+              <Option
+                isActive={optionName === 'TRENDING'}
+                isDarkTheme={isDarkTheme}
+              >
+                Trending
+              </Option>
+            </IconOptioButtonContainer>
+          </Link>
+          <Link to="/gaming" style={{textDecoration: 'none'}}>
+            <IconOptioButtonContainer
+              onClick={() => onClickOption('GAMING')}
               isActive={optionName === 'GAMING'}
               isDarkTheme={isDarkTheme}
+              type="button"
             >
-              <SiYoutubegaming size={21} />
-            </OptionIcon>
-            <Option
-              isActive={optionName === 'GAMING'}
-              isDarkTheme={isDarkTheme}
-            >
-              Gaming
-            </Option>
-          </IconOptioButtonContainer>
-          <IconOptioButtonContainer
-            onClick={() => onClickOption('SAVED VIDEOS')}
-            isActive={optionName === 'SAVED VIDEOS'}
-            isDarkTheme={isDarkTheme}
-          >
-            <OptionIcon
+              <OptionIcon
+                isActive={optionName === 'GAMING'}
+                isDarkTheme={isDarkTheme}
+              >
+                <SiYoutubegaming size={21} />
+              </OptionIcon>
+              <Option
+                isActive={optionName === 'GAMING'}
+                isDarkTheme={isDarkTheme}
+              >
+                Gaming
+              </Option>
+            </IconOptioButtonContainer>
+          </Link>
+          <Link to="/saved-videos" style={{textDecoration: 'none'}}>
+            <IconOptioButtonContainer
+              onClick={() => onClickOption('SAVED VIDEOS')}
               isActive={optionName === 'SAVED VIDEOS'}
               isDarkTheme={isDarkTheme}
+              type="button"
             >
-              <RiMenuAddLine size={21} />
-            </OptionIcon>
-            <Option
-              isActive={optionName === 'SAVED VIDEOS'}
-              isDarkTheme={isDarkTheme}
-            >
-              Saved Videos
-            </Option>
-          </IconOptioButtonContainer>
+              <OptionIcon
+                isActive={optionName === 'SAVED VIDEOS'}
+                isDarkTheme={isDarkTheme}
+              >
+                <RiMenuAddLine size={21} />
+              </OptionIcon>
+              <Option
+                isActive={optionName === 'SAVED VIDEOS'}
+                isDarkTheme={isDarkTheme}
+              >
+                Saved Videos
+              </Option>
+            </IconOptioButtonContainer>
+          </Link>
         </OptionsContainer>
         <ContactLogoContainer>
           <ContactHeading isDarkTheme={isDarkTheme}>CONTACT US</ContactHeading>
