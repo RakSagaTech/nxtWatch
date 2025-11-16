@@ -129,3 +129,17 @@ export const LoginButton = styled.button`
    }
 
 `
+
+export const ErrorMsg = styled.p`
+   font-family: "Roboto";
+   font-size: 12.5px;
+   color: #ff0b37;
+   width: 100%;
+   font-weight: normal;
+   margin-top: 8px;
+   margin-bottom: 0px;
+   @media screen and (min-width: 768px){
+       font-size: 13.5px;
+       margin-top: 7px;
+   }
+`
