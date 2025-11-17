@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import ThemeContext from '../../context/ThemeContext'
 import {
   LoginContainer,
   LoginFormContainer,
@@ -82,32 +83,52 @@ class LoginForm extends Component {
     const {password, showPassword} = this.state
     const inputType = showPassword ? 'text' : 'password'
     return (
-      <InputContainer>
-        <Label htmlFor="password">PASSWORD</Label>
-        <InputField
-          type={inputType}
-          id="password"
-          placeholder="Password"
-          onChange={this.handlePasswordChange}
-          value={password}
-        />
-      </InputContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {theme} = value
+          return (
+            <InputContainer>
+              <Label htmlFor="password" theme={theme}>
+                PASSWORD
+              </Label>
+              <InputField
+                type={inputType}
+                id="password"
+                placeholder="Password"
+                onChange={this.handlePasswordChange}
+                value={password}
+                theme={theme}
+              />
+            </InputContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 
   renderUsernameInput = () => {
     const {username} = this.state
     return (
-      <InputContainer>
-        <Label htmlFor="username">USERNAME</Label>
-        <InputField
-          type="text"
-          id="username"
-          placeholder="Username"
-          onChange={this.handleUsernameChange}
-          value={username}
-        />
-      </InputContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {theme} = value
+          return (
+            <InputContainer>
+              <Label htmlFor="username" theme={theme}>
+                USERNAME
+              </Label>
+              <InputField
+                type="text"
+                id="username"
+                placeholder="Username"
+                onChange={this.handleUsernameChange}
+                value={username}
+                theme={theme}
+              />
+            </InputContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 
@@ -115,30 +136,45 @@ class LoginForm extends Component {
     const {password, showPassword, showErrorMsg, errorMsg} = this.state
     const isPasswordEmpty = password.trim().length === 0
     return (
-      <LoginContainer>
-        <LoginFormContainer onSubmit={this.handleFormSubmit}>
-          <LoginNxtWatchLogo
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-            alt="nxt watch logo"
-          />
-          {this.renderUsernameInput()}
-          {this.renderPasswordInput()}
-          <ShowPasswordContainer>
-            <CheckboxInput
-              type="checkbox"
-              id="checkbox"
-              disabled={isPasswordEmpty}
-              onChange={this.handleShowPassword}
-              checked={!isPasswordEmpty && showPassword}
-            />
-            <ShowPasswordLabel htmlFor="checkbox">
-              Show Password
-            </ShowPasswordLabel>
-          </ShowPasswordContainer>
-          <LoginButton type="submit">Login</LoginButton>
-          {showErrorMsg && <ErrorMsg>*{errorMsg}</ErrorMsg>}
-        </LoginFormContainer>
-      </LoginContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {theme} = value
+          const loginNxtWatchLogo =
+            theme === 'Light'
+              ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+              : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+          return (
+            <LoginContainer theme={theme}>
+              <LoginFormContainer
+                theme={theme}
+                onSubmit={this.handleFormSubmit}
+              >
+                <LoginNxtWatchLogo
+                  src={loginNxtWatchLogo}
+                  alt="nxt watch logo"
+                />
+                {this.renderUsernameInput()}
+                {this.renderPasswordInput()}
+                <ShowPasswordContainer>
+                  <CheckboxInput
+                    type="checkbox"
+                    id="checkbox"
+                    disabled={isPasswordEmpty}
+                    onChange={this.handleShowPassword}
+                    checked={!isPasswordEmpty && showPassword}
+                    theme={theme}
+                  />
+                  <ShowPasswordLabel htmlFor="checkbox" theme={theme}>
+                    Show Password
+                  </ShowPasswordLabel>
+                </ShowPasswordContainer>
+                <LoginButton type="submit">Login</LoginButton>
+                {showErrorMsg && <ErrorMsg>*{errorMsg}</ErrorMsg>}
+              </LoginFormContainer>
+            </LoginContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }
