@@ -5,6 +5,7 @@ export const NavBarContainer = styled.nav`
   flex-direction: row;
   align-items: center;
   width: 100%;
+  height: 100%;
   background-color: ${props =>
     props.theme === 'Light' ? '#f9f9f9' : '#212121'};
 `
