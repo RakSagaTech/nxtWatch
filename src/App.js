@@ -12,6 +12,13 @@ class App extends Component {
   state = {
     theme: 'Light',
     activeMenuId: 'HOME',
+    bannerClose: false,
+  }
+
+  updateBanner = () => {
+    this.setState(prevState => ({
+      bannerClose: !prevState.bannerClose,
+    }))
   }
 
   updateActiveMenu = id => {
@@ -27,9 +34,16 @@ class App extends Component {
   }
 
   render() {
-    const {theme, activeMenuId} = this.state
+    const {theme, activeMenuId, bannerClose} = this.state
     return (
-      <ThemeContext.Provider value={{theme, changeTheme: this.toggleTheme}}>
+      <ThemeContext.Provider
+        value={{
+          theme,
+          changeTheme: this.toggleTheme,
+          closeBanner: this.updateBanner,
+          bannerClose,
+        }}
+      >
         <MenuContext.Provider
           value={{activeMenuId, changeMenu: this.updateActiveMenu}}
         >

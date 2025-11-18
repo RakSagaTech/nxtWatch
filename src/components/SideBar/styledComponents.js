@@ -4,17 +4,15 @@ export const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 48vw;
+  width: 28vw;
   background-color: ${props =>
-    props.theme === 'Light' ? '#f9f9f9' : '#212121'};
+    props.theme === 'Light' ? '#ffffff' : '#212121'};
   @media screen and (max-width: 767px) {
     display: none;
   }
-  @media screen and (min-width: 968px) {
-    width: 40vw;
-  }
-  @media screen and (min-width: 1200px) {
-    width: 32vw;
+  @media screen and (min-width: 768px) {
+    width: 250px;
+    flex-shrink: 0;
   }
 `
 
@@ -46,7 +44,7 @@ export const MenuList = styled.ul`
   margin: 0px;
   padding-top: 30px;
   background-color: ${props =>
-    props.theme === 'Light' ? '#f9f9f9' : '#212121'};
+    props.theme === 'Light' ? '#ffffff' : '#212121'};
 `
 
 export const MenuItem = styled.li`
@@ -59,7 +57,7 @@ export const MenuButton = styled.button`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 10px 20px;
+  padding: 14px 20px;
   border: none;
   outline: none;
   cursor: pointer;

@@ -4,10 +4,12 @@ export const NavBarContainer = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
   background-color: ${props =>
-    props.theme === 'Light' ? '#f9f9f9' : '#212121'};
+    props.theme === 'Light' ? '#ffffff' : '#212121'};
+  @media screen and (min-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const HeaderContent = styled.div`

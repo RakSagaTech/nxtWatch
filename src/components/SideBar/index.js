@@ -49,73 +49,73 @@ const getIconColor = (isActive, theme) => {
 }
 
 const SideBar = () => (
-    <ThemeContext.Consumer>
-      {themeValue => {
-        const {theme} = themeValue
-        const sideBarLogo =
-          theme === 'Light'
-            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-        return (
-          <MenuContext.Consumer>
-            {menuValue => {
-              const {activeMenuId, changeMenu} = menuValue
-              return (
-                <SideBarContainer theme={theme}>
-                  <SideBarLogo src={sideBarLogo} alt="nxt watch logo" />
-                  <OptionsContact>
-                    <MenuList theme={theme}>
-                      {menuOptions.map(eachOption => {
-                        const {id, label, Icon} = eachOption
-                        const isActive = eachOption.id === activeMenuId
-                        return (
-                          <MenuItem key={id}>
-                            <MenuButton
-                              type="button"
-                              isActive={isActive}
-                              theme={theme}
-                              onClick={() => changeMenu(id)}
-                            >
-                              <Icon
-                                size={19}
-                                color={getIconColor(isActive, theme)}
-                              />
-                              <MenuLabel isActive={isActive} theme={theme}>
-                                {label}
-                              </MenuLabel>
-                            </MenuButton>
-                          </MenuItem>
-                        )
-                      })}
-                    </MenuList>
-                    <ContactContainer>
-                      <ContactHeading theme={theme}>CONTACT US</ContactHeading>
-                      <CompanyLogos>
-                        <Image
-                          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
-                          alt="facebook"
-                        />
-                        <Image
-                          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
-                          alt="twitter logo"
-                        />
-                        <Image
-                          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
-                          alt="linked in logo"
-                        />
-                      </CompanyLogos>
-                      <ContactDescription theme={theme}>
-                        Enjoy! Now to see your channels and recommendations!
-                      </ContactDescription>
-                    </ContactContainer>
-                  </OptionsContact>
-                </SideBarContainer>
-              )
-            }}
-          </MenuContext.Consumer>
-        )
-      }}
-    </ThemeContext.Consumer>
-  )
+  <ThemeContext.Consumer>
+    {themeValue => {
+      const {theme} = themeValue
+      const sideBarLogo =
+        theme === 'Light'
+          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+      return (
+        <MenuContext.Consumer>
+          {menuValue => {
+            const {activeMenuId, changeMenu} = menuValue
+            return (
+              <SideBarContainer theme={theme}>
+                <SideBarLogo src={sideBarLogo} alt="nxt watch logo" />
+                <OptionsContact>
+                  <MenuList theme={theme}>
+                    {menuOptions.map(eachOption => {
+                      const {id, label, Icon} = eachOption
+                      const isActive = eachOption.id === activeMenuId
+                      return (
+                        <MenuItem key={id}>
+                          <MenuButton
+                            type="button"
+                            isActive={isActive}
+                            theme={theme}
+                            onClick={() => changeMenu(id)}
+                          >
+                            <Icon
+                              size={19}
+                              color={getIconColor(isActive, theme)}
+                            />
+                            <MenuLabel isActive={isActive} theme={theme}>
+                              {label}
+                            </MenuLabel>
+                          </MenuButton>
+                        </MenuItem>
+                      )
+                    })}
+                  </MenuList>
+                  <ContactContainer>
+                    <ContactHeading theme={theme}>CONTACT US</ContactHeading>
+                    <CompanyLogos>
+                      <Image
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
+                        alt="facebook"
+                      />
+                      <Image
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
+                        alt="twitter logo"
+                      />
+                      <Image
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
+                        alt="linked in logo"
+                      />
+                    </CompanyLogos>
+                    <ContactDescription theme={theme}>
+                      Enjoy! Now to see your channels and recommendations!
+                    </ContactDescription>
+                  </ContactContainer>
+                </OptionsContact>
+              </SideBarContainer>
+            )
+          }}
+        </MenuContext.Consumer>
+      )
+    }}
+  </ThemeContext.Consumer>
+)
 
 export default SideBar
